@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    Index.html de projeto
+{% endblock %} 
+
+{% block  corpo %}
+    {{ frase }}
+    <br>
+    <br>
+    {{ frase2 }}
+    <br>
+    <br>
+    <a href = "/produto/">Acessando a pagina index.html de produto usando caminho absoluto</a>
+    <br>
+    <br>
+    <a href = "produto">Acessando a pagina index.html de produto usando caminho relativo</a>
+    <br>
+    <br>
+    <a href = "{%url 'produto:pagina1' %}">Acessando a pagina produto\paginas\pagina1 usando tag url</a>
+    <br>
+    <a href = "{%url 'produto:pagina2' %}">Acessando a pagina produto\pagina2 usando tag url</a>
+    <br>
+    <br>
+
+    <div class="card" style="width: 18rem;">
+        <img src="{%static 'imgs/pao-de-acucar.jpg' %}" class="card-img-top" alt="pao-de-acucar">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+<!-- 
+
+   Como acessar a pagina index.html de projeto.
+   http://127.0.0.1:8000/
+
+   Como acessar a pagina index.html de produto.
+   http://127.0.0.1:8000/produto/
+
+-->
