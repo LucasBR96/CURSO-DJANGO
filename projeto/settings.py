@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import categoria
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,12 +32,30 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # -----------------------------------------------------------
+    # interface utilizda pelos empregados da empresa que é dona do
+    # site
     'django.contrib.admin',
+
+    # -----------------------------------------------------------
+    # interface usada pelos clientes
     'django.contrib.auth',
+
     'django.contrib.contenttypes',
+
+    #-----------------------------------------------------------
+    # permite que o usuário crie uma sessão no servidor e armaze
+    # ne iformações importantes
     'django.contrib.sessions',
+
     'django.contrib.messages',
+
+    #----------------------------------------------------------
+    # controla os dados de arquivos estáticos.
+    # ( css , js , imagens , etc )
     'django.contrib.staticfiles',
+
+    'categoria',
     'produto',
 ]
 
@@ -74,6 +93,9 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+#--------------------------------------------------------------
+# sqlite é a versão mais simples, oficialmente django também suporta
+# SGBDs do tipo Mysql e Postgresql
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -106,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
