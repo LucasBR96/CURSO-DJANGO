@@ -21,6 +21,6 @@ class Categoria( models.Model ):
         # define por qual atributo as instâncias serão ordenadas
         ordering = ('nome',)
 
-        def __str__(self):
-            return self.nome
+    def __str__(self):
+        return self.nome
         

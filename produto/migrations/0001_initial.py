@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('qdt_est', models.IntegerField(default=0)),
                 ('preco', models.DecimalField(decimal_places=2, default=0.0, max_digits=5)),
                 ('disponivel', models.BooleanField(default=False)),
-                ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='categoria.categoria')),
+                ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='categoria.Categoria')),
             ],
             options={
                 'db_table': 'produto',
