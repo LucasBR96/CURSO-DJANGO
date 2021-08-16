@@ -1,12 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Título de produto</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+    Index.html de produto
+{% endblock %}
+
+{% block corpo %}
     {{ frase }}
     <br>
     <br>
-</body>
-</html>
+    <div class="card" style="width: 26rem;">
+      <img src="{% static 'images/pao-de-acucar.jpg' %}" class="card-img-top" alt="Pão de Açucar">
+      <div class="card-body">
+        <h5 class="card-title">Pão de Açucar</h5>
+        <p class="card-text">Localizado no bairro da Urca, o bondinho é uma das principais atrações turísticas
+                             da cidade. Liga a Praia Vermelha ao morro da Urca e ao morro do Pão de açúcar. O
+                             bondinho foi cenário do filme 007 contra o Foguete da Morte, de 1979.</p>
+        <a href="#" class="btn btn-primary">Mais informações...</a>
+      </div>
+    </div>
+{% endblock %}
+
+{% block rodape %}
+    <hr>
+    Rodapé da página index.html de produto.
+{% endblock %}

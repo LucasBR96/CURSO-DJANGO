@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import categoria
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,31 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # -----------------------------------------------------------
-    # interface utilizda pelos empregados da empresa que é dona do
-    # site
     'django.contrib.admin',
-
-    # -----------------------------------------------------------
-    # interface usada pelos clientes
     'django.contrib.auth',
-
     'django.contrib.contenttypes',
-
-    #-----------------------------------------------------------
-    # permite que o usuário crie uma sessão no servidor e armaze
-    # ne iformações importantes
     'django.contrib.sessions',
-
     'django.contrib.messages',
-
-    #----------------------------------------------------------
-    # controla os dados de arquivos estáticos.
-    # ( css , js , imagens , etc )
     'django.contrib.staticfiles',
-
-    'categoria',
     'produto',
+    'categoria'
 ]
 
 MIDDLEWARE = [
@@ -93,9 +75,6 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-#--------------------------------------------------------------
-# sqlite é a versão mais simples, oficialmente django também suporta
-# SGBDs do tipo Mysql e Postgresql
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -141,6 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = (
-    os.path.join( BASE_DIR , 'static' ),
+    os.path.join(BASE_DIR, 'static'),
 )
