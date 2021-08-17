@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('produto/', include('produto.urls')),
     path('admin/', admin.site.urls),
+    path('fornecedor/', include('fornecedor.urls'))
 ]
 
 #     Como acessar a página index.html do projeto:
