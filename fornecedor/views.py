@@ -1,6 +1,12 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from fornecedor.models import Fornecedor
+from fornecedor.forms import FornecedorForm
+
+def cadastra_fornecedor( request ):
+    
+    fornec = FornecedorForm()
+    return render( request, 'fornecedor/form.html', { 'formulario': fornec })
 
 def lista_fornecedor(request):
     lista_de_fornecedores = Fornecedor.objects.all()

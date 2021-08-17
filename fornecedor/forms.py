@@ -1,3 +1,5 @@
+from fornecedor.models import Fornecedor
+from django import forms
 import re
 
 # funcoes de validacao --------------------------------------------------------
@@ -60,3 +62,17 @@ def valida_nome( nome_str ):
 def valida_endr( nome_str ):
 
     return re.match( TEL_RX1 , nome_str ) is not None
+
+class FornecedorForm( forms.ModelForm ):
+    
+    class Meta:
+        model = Fornecedor
+        fields = ( 'Nome' , 'Endereco' , 'Telefone', 'CNPJ' )
+    
+    Nome = forms.CharField(
+        error_messages = { 
+            "Required":"campo obrigatório",
+            "unique":"Nome duplicado"
+        },
+        widget = forms.TextInput( attrs = {'class':'form-control form-control-sm', 'max-lenght': '100'})
+    )
