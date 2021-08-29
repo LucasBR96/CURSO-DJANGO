@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+   Lista de Produtos
+{% endblock %}
+
+{% block corpo %}
+    <div class = "row" >
+        <!-- Seletor de categorias ############################## -->
+        <div class = "col-lg-2">
+            <div class = "nav flex-column nav-pills">
+                <a class = "nav-link {% if not cat %}active{% endif %}" href = "/">Todos</a>
+                {% for catg in categorias %}
+                    <a class = "nav-link {% if catg.nome == cat.nome %}active{% endif %}" 
+                    href = "{{ catg.get_absolute_url }}">{{ catg.nome }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- grade de produtos ################################## -->
+        <div class = "col-lg-10">
+            <div class = "row">
+                <h5> {% if cat %}{{ cat.nome }}{% else %}Todos{% endif %}</h5>
+            </div>
+            <div class = "row", id = "prod_cards" >
+                {%for prod in produtos %}
+                <div class = "col-5 col-lg-2 mx-1 my-1 px-0">
+                    <div class="card text-center">
+                        <img class="card-img-top" 
+                        src="{% static 'images/produtos/' %}{{ prod.imagem }}" 
+                        style ="width:120px"
+                        alt = "{{ prod.nome }}">
+                        <div class="card-body">
+                        <h5 class="card-title">
+                            <a href = "{{ prod.get_absolute_url }}">
+                                {{ prod.nome }}
+                            </a>
+                        </h5>
+                        <p class="card-text">{{ prod.descricao }}</p>
+                        <p class="card-text font-weight-bold" style = "color: #dc3545;">R${{ prod.preco }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

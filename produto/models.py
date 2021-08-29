@@ -26,5 +26,5 @@ class Produto(models.Model):
 
         return carrinho/11/laranja
         '''
-        return reverse( "carrinho:exibe_produtos" , args = [ self.id , self.slug ] )
+        return reverse( "carrinho:exibe_produto" , args = [ self.id , self.slug ] )
 
