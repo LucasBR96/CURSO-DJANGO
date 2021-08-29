@@ -32,6 +32,7 @@
                         src="{% static 'images/produtos/' %}{{ prod.imagem }}" 
                         style ="width:120px"
                         alt = "{{ prod.nome }}">
+
                         <div class="card-body">
                         <h5 class="card-title">
                             <a href = "{{ prod.get_absolute_url }}">
@@ -40,6 +41,33 @@
                         </h5>
                         <p class="card-text">{{ prod.descricao }}</p>
                         <p class="card-text font-weight-bold" style = "color: #dc3545;">R${{ prod.preco }}</p>
+                        </div>
+
+                        <div class = "card-footer border-0 mb-1">
+                            <form class  = "form-inline"
+                                  style  = "{% if form.quantidade.value == 0 %} display : none {% endif %}"
+                                  method = "POST" novalidate
+                                  action = "{% url 'carrinho:atualiza_carrinho' %}">
+                                {% csrf_token %}
+                                {{ form.produto_id }}
+                                <div class="input-group w-100">
+
+                                    <div class="input-group-prepend">
+                                      <input type = "button" class = "btn btn-secondary menos" value="-">
+                                    </div>
+
+                                    {{ form.quantidade }}
+
+                                    <div class="input-group-append">
+                                        <input type = "button" class = "btn btn-secondary mais" value="+">
+                                    </div>
+
+                                </div>
+
+                            </form>
+                            <input type = "button" class = "btn btn-primary comprar w-100"
+                                    style = "{% if form.quantidade.value > 0 %} display : none {% endif %}"
+                                    value = "Comprar">
                         </div>
                     </div>
                 </div>

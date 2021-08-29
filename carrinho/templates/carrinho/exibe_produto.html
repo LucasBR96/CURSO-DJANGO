@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+   Vitrine de {{ produto.nome }}
+{% endblock %}
+
+{% block corpo %}
+    <div class = "row" >
+        <div class = "col-4">
+            <img src = "{% static 'images/produtos/' %}{{ produto.imagem }}"
+            style = "width: 100%;" >
+        </div>
+        <div class = "col-8">
+            <div class = "row">
+                <div class = "col-3 font-weight-bold">Nome</div>
+                <div class = "col-9">{{ produto.nome }}</div>
+            </div>
+            <div class = "row">
+                <div class = "col-3 font-weight-bold">Descrição</div>
+                <div class = "col-9">{{ produto.descricao }}</div>
+            </div>
+            <div class = "row">
+                <div class = "col-3 font-weight-bold">Preço</div>
+                <div class = "col-9"> R${{ produto.preco }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -6,6 +6,8 @@ from django.urls import path, include
 urlpatterns = [
     path('',views.lista_produto, name = "lista_produtos"),
 
+    path('atualiza_carrinho/', views.atualiza_carrinho, name = "atualiza_carrinho"),
+
     #--------------------------------------------------------
     # carrinho/fruta
     # carrinho/grão
