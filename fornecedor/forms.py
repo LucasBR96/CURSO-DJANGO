@@ -6,11 +6,12 @@ import re
 
 FIRST_CNPJ_SEQ = [5,4,3,2,9,8,7,6,5,4,3,2]
 SECND_CNPJ_SEQ = [6,5,4,3,2,9,8,7,6,5,4,3,2]
-DIGITS         = ''.join( map( str , range(10) ) )
+VALID        = 0 #CNPJ valido
+FORM_INVALID = 1 #O String para o CNPJ não é composto por 14 digitos
+NUMR_INVALID = 2 #Os 12 primeiros digitos não validam os dois ultimos 
 
-#TEL_RX1 = r"^\d{2}\s\d{4,5}\s\d{4}$"
+CNPJ_RX = r"^\d{14}$"
 TEL_RX2 = r"^\d{11,12}$"
-NOME_RX = r"^([A-Z][a-z]+|[a-z])(\s([A-Z][a-z]+|[a-z]))*$"
 ENDR_RX = r"^(\w+|\s)+$"
 
 def verifica_digitos( base , ref , vef ):
@@ -26,10 +27,8 @@ def valida_cnpj( cnpj_str ):
 
     #-------------------------------------------------
     # filtra os digitos de cnpj_str
-    foo = lambda x: x in DIGITS
-    cnpj_str = ''.join( filter( foo , cnpj_str ) )
-    if len( cnpj_str ) != 14:
-        return False
+    if re.match( CNPJ_RX , cnpj_str ) is None:
+        return FORM_INVALID
     
     cnpj_digits = list( map( int , [ x for x in cnpj_str ] ) )
     vef1 , vef2 = cnpj_digits[ -2: ]
@@ -44,7 +43,8 @@ def valida_cnpj( cnpj_str ):
     base.append( vef1 )
     b = verifica_digitos( base , SECND_CNPJ_SEQ , vef2 )
     
-    return ( a and b )
+    if not ( a and b ): return NUMR_INVALID
+    return VALID
 
 def valida_telefone( tel_str ):
 
@@ -54,13 +54,12 @@ def valida_telefone( tel_str ):
 
     return re.match( TEL_RX2 , tel_str ) is not None
 
-def valida_nome( nome_str ):
+def valida_nome_endr( nome_str ):
 
-    return re.match( NOME_RX , nome_str ) is not None
-
-def valida_endr( nome_str ):
-
+    #----------------------------------------------
+    # nome e endereço aceitam a mesma regex
     return re.match( ENDR_RX , nome_str ) is not None
+
 
 class FornecedorForm( forms.ModelForm ):
     
@@ -70,7 +69,7 @@ class FornecedorForm( forms.ModelForm ):
     
     Nome = forms.CharField(
         error_messages = { 
-            "Required":"Campo obrigatório",
+            "required":"Campo obrigatório",
             "unique":"Nome duplicado"
         },
         widget = forms.TextInput( attrs = {'class':'form-control form-control-sm', 'max-lenght': '100'})
@@ -78,15 +77,15 @@ class FornecedorForm( forms.ModelForm ):
 
     Endereco = forms.CharField(
         error_messages = { 
-            "Required":"Campo obrigatório",
+            "required":"Campo obrigatório",
             "unique":"Endereco duplicado"
         },
         widget = forms.TextInput( attrs = {'class':'form-control form-control-sm', 'max-lenght': '100'})
     )
 
-    Telfone = forms.CharField(
+    Telefone = forms.CharField(
         error_messages = { 
-            "Required":"Campo obrigatório",
+            "required":"Campo obrigatório",
             "unique":"Telefone duplicado"
         },
         widget = forms.TextInput( attrs = {'class':'form-control form-control-sm', 'max-lenght': '25'})
@@ -94,8 +93,47 @@ class FornecedorForm( forms.ModelForm ):
 
     CNPJ = forms.CharField(
         error_messages = { 
-            "Required":"Campo obrigatório",
+            "required":"Campo obrigatório",
             "unique":"CNPJ duplicado"
         },
         widget = forms.TextInput( attrs = {'class':'form-control form-control-sm', 'max-lenght': '30'})
     )
+
+    def clean_Telefone( self ):
+
+        tel_str = self.cleaned_data[ 'Telefone' ]
+        if not valida_telefone( tel_str ):
+            raise forms.ValidationError( 'Telefone inválido: o numero deve ter entre 11 e 12 dígitos')
+        return tel_str
+    
+    def clean_CNPJ( self ):
+
+        
+        cnpj_str = self.cleaned_data[ 'CNPJ' ]
+        res = valida_cnpj( cnpj_str )
+        if res == VALID:
+            return cnpj_str
+
+        s = "CNPJ inválido:"
+        if res == FORM_INVALID:
+            s += " apenas dígitos"
+            print( "!" )
+        elif res == NUMR_INVALID:
+            s += " os dois ultimos digitos não validam os 12 primeiros"
+        raise forms.ValidationError( s )
+    
+    def clean_Endereco( self ):
+
+        addr_str = self.cleaned_data[ 'Endereco' ]
+        if valida_nome_endr( addr_str ):
+            return addr_str
+        
+        raise forms.ValidationError( 'Endereco invalido: Apenas letras, números e espaços')
+
+    def clean_Nome( self ):
+
+        nome_str = self.cleaned_data[ 'Nome' ]
+        if valida_nome_endr( nome_str ):
+            return nome_str
+        
+        raise forms.ValidationError( 'Nome invalido: Apenas letras, números e espaços')

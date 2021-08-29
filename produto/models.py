@@ -1,5 +1,6 @@
 from django.db import models
 from categoria.models import Categoria
+from django.urls import reverse
 
 class Produto(models.Model):
     categoria = models.ForeignKey(Categoria, related_name='produtos', on_delete=models.DO_NOTHING)
@@ -17,4 +18,13 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+    
+    def get_absolute_url(self):
+        '''
+        self.id = 11
+        self.slug = laranja
+
+        return carrinho/11/laranja
+        '''
+        return reverse( "carrinho:exibe_produtos" , args = [ self.id , self.slug ] )
 

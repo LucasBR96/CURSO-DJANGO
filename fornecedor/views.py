@@ -1,12 +1,9 @@
+import fornecedor
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from fornecedor.models import Fornecedor
 from fornecedor.forms import FornecedorForm
-
-def cadastra_fornecedor( request ):
-    
-    fornec = FornecedorForm()
-    return render( request, 'fornecedor/form.html', { 'formulario': fornec })
+from django.contrib import messages
 
 def lista_fornecedor(request):
     lista_de_fornecedores = Fornecedor.objects.all()
@@ -19,3 +16,16 @@ def lista_fornecedor(request):
     page_obj = paginator.get_page(pagina)
 
     return render(request, 'fornecedor/lista_forn.html', { 'forn': page_obj })
+
+def cadastra_fornecedor( request ):
+
+    if request.POST:
+        fornecedor_form = FornecedorForm( data = request.POST )
+        if fornecedor_form.is_valid():
+            form = fornecedor_form.save()
+            messages.add_message( request , messages.INFO , "fornecedor cadastrado com sucesso" )
+
+            return render( request , "fornecedor/acpt.html" , {'form':form } )
+    else:
+        fornecedor_form = FornecedorForm()
+    return render( request, 'fornecedor/form.html', { 'formulario': fornecedor_form }) 

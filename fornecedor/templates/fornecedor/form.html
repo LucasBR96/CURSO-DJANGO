@@ -13,26 +13,86 @@
     <hr class = "mt-0">
 
     <form action = '' method = 'POST' novalidate>
-        {% for tup in formulario.fields %}
-        <div class = "row">
-            <div class = "col-4 text-center pt-1" style="display: inline">{{tup}}</div>
+        {% csrf_token %}
+        
+    {% comment %}
+        {% for tup , obj in formulario.fields.items %}
+        <div class = "row mb-2">
+            <div class = "col-4 text-center pt-1" style="display: inline">{{ tup }}</div>
             <div class = "col-8">
-                <input type="text" id="reg" style="font-size : 15px"
+                <input type="text" id="{{tup}}" style="font-size : 15px"
                 class="form-control form-control-sm mr-2 mb-2"
                 placeholder="{{tup}}">
-                {% if tup.error %}
+                {% if obj.errors %}
                     <div class = "alert alert-danger mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
-                        {% for erro in tup.error %}
-                            <small>{{erro}}</small>
+                        {% for erro in obj.errors %}
+                            {{ erro }}
                         {% endfor %}
                     </div>
                 {% endif %}
             </div>
         </div>
         {% endfor %}
+    {% endcomment %}
+
+        <div class = "row mb-2">
+            <div class = "col-4 text-center pt-1" style="display: inline">Nome</div>
+            <div class = "col-8">
+                {{ formulario.Nome}}
+                {% if formulario.Nome.errors %}
+                    <div class = "alert alert-danger mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
+                        {% for erro in formulario.Nome.errors %}
+                            <small>{{ erro }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class = "row mb-2">
+            <div class = "col-4 text-center pt-1" style="display: inline">Endereco</div>
+            <div class = "col-8">
+                {{ formulario.Endereco }}
+                {% if formulario.Endereco.errors %}
+                    <div class = "alert alert-danger mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
+                        {% for erro in formulario.Endereco.errors %}
+                            <small>{{ erro }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class = "row mb-2">
+            <div class = "col-4 text-center pt-1" style="display: inline">Telefone</div>
+            <div class = "col-8">
+                {{ formulario.Telefone}}
+                {% if formulario.Telefone.errors %}
+                    <div class = "alert alert-danger mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
+                        {% for erro in formulario.Telefone.errors %}
+                            <small>{{ erro }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-4 text-center pt-1" style="display: inline">CNPJ</div>
+            <div class = "col-8">
+                {{ formulario.CNPJ }}
+                {% if formulario.CNPJ.errors %}
+                    <div class = "alert alert-danger mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
+                        {% for erro in formulario.CNPJ.errors %}
+                            <small>{{ erro }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
         <div class ="text-center mt-3" >
-            {% csrf_token %}
-            <button class = "btn btn-outline-danger" href = "#" > Cadastrar </button>
+            <button type = "submit" class = "btn btn-outline-danger" href = "#" > Cadastrar </button>
         </div>
         
     </form>
