@@ -18,11 +18,12 @@ def lista_produto( request , slug_da_categoria = None ):
     lst_form   = []
     for produto in produtos:
         qtd = carr.get_quantidade( produto.id )
-        lst_form.append( QuantidadeForm( initial = {'quantidade':qtd , 'produto_id':produto.id}) ) 
+        lst_form.append( QuantidadeForm( initial = {'quantidade':qtd , 'produto_id':produto.id}) )
     
+    listas = zip( produtos , lst_form )
     d = dict()
     d['categorias'] = categorias
-    d['produtos']   = produtos
+    d['listas']     = listas
     d['cat']        = cat
 
     return render( request, 'carrinho/lista_produtos.html', d )
@@ -37,4 +38,11 @@ def exibe_produto( request , id , slug_do_produto ):
     return render( request , 'carrinho/exibe_produto.html', { "produto":produto } )
     
 def atualiza_carrinho( request ):
-    pass
+    
+    form = QuantidadeForm( request.POST )
+    if form.is_valid():
+        
+        produto_id = form.cleaned_data[ 'produto_id' ]
+        quantidade = form.cleaned_data[ 'quantidade' ]
+
+        quantidade += 1

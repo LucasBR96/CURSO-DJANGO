@@ -25,12 +25,12 @@
                 <h5> {% if cat %}{{ cat.nome }}{% else %}Todos{% endif %}</h5>
             </div>
             <div class = "row", id = "prod_cards" >
-                {%for prod in produtos %}
+                {%for prod , form in listas %}
                 <div class = "col-5 col-lg-2 mx-1 my-1 px-0">
-                    <div class="card text-center">
-                        <img class="card-img-top" 
+
+                    <div class="card text-center mr-2">
+                        <img class="card-img-top w-100" 
                         src="{% static 'images/produtos/' %}{{ prod.imagem }}" 
-                        style ="width:120px"
                         alt = "{{ prod.nome }}">
 
                         <div class="card-body">
@@ -75,4 +75,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block domready %}
 {% endblock %}

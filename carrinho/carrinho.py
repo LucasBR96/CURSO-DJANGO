@@ -51,6 +51,9 @@ class Carrinho( object ):
         return str( soma )
 
     def get_quantidade( self , id ):
+        
+        if not ( id in self.carrinho ):
+            self.atualizar( id , 0 )
         return self.carrinho[ id ][ 'quantidade' ]
     
     def get_qtd_total( self ):

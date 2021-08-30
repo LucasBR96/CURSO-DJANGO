@@ -11,8 +11,8 @@ class QuantidadeForm( forms.Form ):
     quantidade = forms.IntegerField( 
         min_value = 0,
         max_value = 99,
-        widgets = forms.TextInput( attrs = { 'class' : 'form-control btn-secondary quantidade' ,
-                                              'width': '70px',
-                                              'readonly': 'readonly'} ),
+        widget = forms.TextInput( attrs = { 'class' : 'form-control btn-secondary quantidade' ,
+                                            'width': '70px',
+                                            'readonly': 'readonly'} ),
         required  = True )
 

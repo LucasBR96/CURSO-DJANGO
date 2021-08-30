@@ -128,4 +128,4 @@ STATICFILES_DIRS = (
 )
 
 # Carrinho
-CARRIHO_SESSION_ID = 'carrinho'
+CARRINHO_SESSION_ID = 'carrinho'
