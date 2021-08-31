@@ -11,22 +11,22 @@ class Carrinho( object ):
         if self.carrinho is None:
             self.carrinho = self.session[ settings.CARRINHO_SESSION_ID ] = {}
         
-    def atualizar( self , id , qtd ):
+    def atualizar( self , idt , qtd ):
 
-        produto = Produto.objects.get( id = id )
-        if not id in self.carrinho:
+        produto = Produto.objects.get( id = idt )
+        if not idt in self.carrinho:
 
             d = dict()
-            d[ 'id' ] = str( id )
+            d[ 'id' ] = str( idt )
             d[ 'preco' ] = str( produto.preco )
             d[ 'quantidade'] = qtd
             d[ 'total' ] = str( qtd*produto.preco )
 
-            self.carrinho[ id ] = d
+            self.carrinho[ idt ] = d
         else:
 
-            self.carrinho[ id ][ 'quantidade' ] = qtd
-            self.carrinho[ id ][ 'total' ] = str( self.carrinho[id][ 'quantidade' ]*float( self.carrinho[id][ 'preco' ] ) )
+            self.carrinho[ idt ][ 'quantidade' ] = qtd
+            self.carrinho[ idt ][ 'total' ] = str( self.carrinho[ idt ][ 'quantidade' ]*float( self.carrinho[idt][ 'preco' ] ) )
         
         self.salvar()
 
@@ -34,37 +34,37 @@ class Carrinho( object ):
 
         self.session.modified = True
 
-    def remover( self , id ):
+    def remover( self , idt ):
 
-        if id in self.carrinho:
-            del self.carrinho[ id ]
+        if idt in self.carrinho:
+            del self.carrinho[ idt ]
             self.salvar()
 
-    def get_preco_total( self , id ):
-        return self.carrinho[ id ][ 'total' ]
+    def get_preco_total( self , idt ):
+        return self.carrinho[ idt ][ 'total' ]
 
     def get_gasto_total( self ):
 
         soma = 0
-        for id in self.carrinho :
-            soma += float( self.get_preco_total( id ) )
+        for idt in self.carrinho :
+            soma += float( self.get_preco_total( idt ) )
         return str( soma )
 
-    def get_quantidade( self , id ):
+    def get_quantidade( self , idt ):
         
-        if not ( id in self.carrinho ):
-            self.atualizar( id , 0 )
-        return self.carrinho[ id ][ 'quantidade' ]
+        if not ( idt in self.carrinho ):
+            self.atualizar( idt , 0 )
+        return self.carrinho[ idt ][ 'quantidade' ]
     
     def get_qtd_total( self ):
-        return sum( self.get_quantidade( id ) for id in self.carrinho.keys() )
+        return sum( self.get_quantidade( idt ) for idt in self.carrinho.keys() )
 
     def lista_de_produtos( self ):
 
         lst = []
-        for id , prod in self.carrinho.items():
+        for idt , prod in self.carrinho.items():
 
-            produto = Produto.objects.get( id = id )
+            produto = Produto.objects.get( id = idt )
             prod_dict = prod.copy()
             prod_dict[ 'produto' ] = produto
 

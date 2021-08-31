@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,11 +62,25 @@
                         <img src="{% static 'images/carrinho.png' %}" style="width: 35px" alt="Carrinho">
                         Carrinho
                     </a>
+                    <div id = 'total-1' class = "d-flex justify-content-center">
+                        {% if qtd == 1 %}
+                            {{ qtd }} item - R$ {{ gasto | floatformat:2 | intcomma }}
+                        {% else %}
+                            {{ qtd }} itens - R$ {{ gasto | floatformat:2 | intcomma }}
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="d-block d-sm-none">
                     <a style="text-decoration: none" href="#">
                         <img src="{% static 'images/carrinho.png' %}" style="width: 35px" alt="Carrinho">
                     </a>
+                    <div id = 'total-1' class = "d-flex justify-content-center">
+                        {% if qtd == 1 %}
+                            {{ qtd }} item - R$ {{ gasto | floatformat:2 | intcomma }}
+                        {% else %}
+                            {{ qtd }} itens - R$ {{ gasto | floatformat:2 | intcomma }}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

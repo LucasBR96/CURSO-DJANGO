@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.http.response import JsonResponse
+from django.shortcuts import render, get_object_or_404, HttpResponse
 from produto.models import Produto
 from categoria.models import Categoria
 from carrinho.carrinho import Carrinho
@@ -45,4 +46,22 @@ def atualiza_carrinho( request ):
         produto_id = form.cleaned_data[ 'produto_id' ]
         quantidade = form.cleaned_data[ 'quantidade' ]
 
-        quantidade += 1
+        carrinho = Carrinho( request )
+        if quantidade == 0:
+            carrinho.remover( produto_id )
+            preco_total = 0
+        else:
+            carrinho.atualizar( produto_id , quantidade )
+            preco_total = carrinho.get_preco_total( produto_id )
+        
+        qtd = carrinho.get_qtd_total()
+        prec = carrinho.get_gasto_total()
+
+        print( "****** id do produto: {}".format( produto_id ) )
+        print( "****** qtd do produto: {}".format( quantidade ) )
+        print( "****** preco do produto: {}".format( preco_total ) )
+
+        return JsonResponse( {'qtd':qtd , 'gasto':prec })
+    else:
+        raise ValueError( "OOPS! Ocorreu algum erro.")
+

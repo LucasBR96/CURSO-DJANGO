@@ -26,3 +26,53 @@
             })
         })
 })
+
+$(".mais").click( function(){
+
+    this.blur();
+
+    let input = $( this ).parent().prev();
+    console.log( input );
+
+    let num   = +input.val() + 1;
+    console.log( num );
+    if( num >= 100 ){
+        return;
+    }
+
+    input.val( num );
+    let form = $( this ).parent().parent().parent();
+
+    let url = form.attr( 'action' );
+    let formData = form.serializeArray();
+
+    $.post( url , formData, function( resposta ){
+            console.log( "O botão \"mais\" foi clicado" );
+            })
+
+} )
+
+$(".menos").click( function(){
+
+    this.blur();
+
+    let input = $( this ).parent().next();
+    console.log( input );
+
+    let num   = +input.val() - 1;
+    console.log( num );
+    if( num < 0 ){
+        return;
+    }
+
+    input.val( num );
+    let form = $( this ).parent().parent().parent();
+
+    let url = form.attr( 'action' );
+    let formData = form.serializeArray();
+
+    $.post( url , formData, function( resposta ){
+            console.log( "O botão \"menos\" foi clicado" );
+            })
+
+} )
