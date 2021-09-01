@@ -13,6 +13,7 @@ class Carrinho( object ):
         
     def atualizar( self , idt , qtd ):
 
+        print( self.carrinho )
         produto = Produto.objects.get( id = idt )
         if not idt in self.carrinho:
 

@@ -23,6 +23,14 @@
             $(botao).fadeTo( 'fast' , 0.3 , function(){
                 $(botao).hide();
                 form.show();
+
+                if( resposta.qtd === 1 ){
+                    // $("#total-1").text( resposta.qtd + "item" + resposta.prec );
+                    let s = " item -";
+                }else if ( resposta.qtd > 1){
+                    let s = " itens -";
+                }$("#total-1").text( resposta.qtd + s + resposta.prec );
+
             })
         })
 })
@@ -48,6 +56,13 @@ $(".mais").click( function(){
 
     $.post( url , formData, function( resposta ){
             console.log( "O botão \"mais\" foi clicado" );
+
+            if( resposta.qtd === 1 ){
+                // $("#total-1").text( resposta.qtd + "item" + resposta.prec );
+                let s = " item -";
+            }else if ( resposta.qtd > 1){
+                let s = " itens -";
+            }$("#total-1").text( resposta.qtd + s + resposta.prec );
             })
 
 } )
@@ -73,6 +88,13 @@ $(".menos").click( function(){
 
     $.post( url , formData, function( resposta ){
             console.log( "O botão \"menos\" foi clicado" );
+
+            if( resposta.qtd === 1 ){
+                // $("#total-1").text( resposta.qtd + "item" + resposta.prec );
+                let s = " item -";
+            }else if ( resposta.qtd > 1){
+                let s = " itens -";
+            }$("#total-1").text( resposta.qtd + s + resposta.prec );
             })
 
 } )

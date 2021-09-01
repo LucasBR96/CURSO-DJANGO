@@ -61,7 +61,7 @@ def atualiza_carrinho( request ):
         print( "****** qtd do produto: {}".format( quantidade ) )
         print( "****** preco do produto: {}".format( preco_total ) )
 
-        return JsonResponse( {'qtd':qtd , 'gasto':prec })
+        return JsonResponse( {'qtd':qtd, 'gasto':prec })
     else:
         raise ValueError( "OOPS! Ocorreu algum erro.")
 
