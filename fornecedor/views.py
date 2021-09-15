@@ -1,13 +1,19 @@
+from django.http.response import JsonResponse
 import fornecedor
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from fornecedor.models import Fornecedor
-from fornecedor.forms import FornecedorForm , FornecedorSelect
+from fornecedor.forms import FornecedorForm
 from django.contrib import messages
+from django.http import JsonResponse
+
+def mostrar_fornecedor( request , **kwargs ):
+
+    forn = Fornecedor.objects.get( id = kwargs[ "id" ] )
+    return render( request , "fornecedor/mostrar.html" , {'form':forn } )
 
 def remover_forn( request ):
     pass
-
 
 def lista_fornecedor(request):
     lista_de_fornecedores = Fornecedor.objects.all()
@@ -27,9 +33,11 @@ def cadastra_fornecedor( request ):
         fornecedor_form = FornecedorForm( data = request.POST )
         if fornecedor_form.is_valid():
             form = fornecedor_form.save()
-            messages.add_message( request , messages.INFO , "fornecedor cadastrado com sucesso" )
+            # messages.add_message( request , messages.INFO , "fornecedor cadastrado com sucesso" )
 
-            return render( request , "fornecedor/acpt.html" , {'form':form } )
+            # return render( request , "fornecedor/acpt.html" , {'form':form } )
+
+            return JsonResponse( { "success":True } )
     else:
         fornecedor_form = FornecedorForm()
     return render( request, 'fornecedor/form.html', { 'formulario': fornecedor_form }) 

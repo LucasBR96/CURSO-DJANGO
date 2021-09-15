@@ -12,7 +12,7 @@
     <h5 class="mb-3 text-center">Cadastro de Fornecedor</h5>
     <hr class = "mt-0">
 
-    <form action = '' method = 'POST' novalidate>
+    <form id = "fornecedor-form" action = '' method = 'POST' novalidate>
         {% csrf_token %}
         
     {% comment %}
@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div class = "row">
+        <div class = "row mb-2">
             <div class = "col-4 text-center pt-1" style="display: inline">CNPJ</div>
             <div class = "col-8">
                 {{ formulario.CNPJ }}
@@ -92,11 +92,37 @@
         </div>
 
         <div class ="text-center mt-3" >
-            <button type = "submit" class = "btn btn-outline-danger" href = "#" > Cadastrar </button>
+            <button id = "submit-btn" class = "btn btn-outline-danger" href = "#" > Cadastrar </button>
         </div>
         
     </form>
 </div>
 
 
+{% endblock %}
+
+{% block domready %}
+<script>
+    $( document ).ready( function(){
+        $( "#submit-btn" ).click( function( event ){
+
+            event.preventDefault();
+
+            let form = $( "#fornecedor-form" );
+            url = $( form ).attr( "action" );
+            data = $( form ).serializeArray();
+            $.post( url , data , function( resposta ){
+
+                alert( "Fornecedor registrado com sucesso!" );
+
+                // limpando o formulario
+                $( form ).find( ".row > .col-8" ).each( function(){
+                    console.log( $("input").attr( "value" ) );
+                    $( this ).find("input").attr( "value", "" );
+                })
+
+            })
+        })
+    })
+</script>
 {% endblock %}

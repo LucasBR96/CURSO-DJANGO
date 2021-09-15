@@ -22,11 +22,10 @@
       <thead style='width:100%' >
          <tr class = 'text-center'>
             <th scope="col" style = "display: none;">#</th>
-            <th scope="col" style = "width: 18%;">Nome</th>
-            <th scope="col" style = "width: 18%;">Endereco</th>
-            <th scope="col" style = "width: 18%;">Telefone</th>
-            <th scope="col" style = "width: 18%;">CNPJ</th>
-            <th scope="col" style = "width: 28%;">Operacao</th>
+            <th scope="col" style = "width: 25%;">Nome</th>
+            <th scope="col" style = "width: 25%;">Endereco</th>
+            <th scope="col" style = "width: 25%;">Telefone</th>
+            <th scope="col" style = "width: 25%;">CNPJ</th>
          </tr>
       </thead>
       <tbody>
@@ -34,7 +33,7 @@
             <tr class = "text-center">
                <th scope="col" style = "display: none;">{{ fornec.id }}</th>
                <td>
-                  <a href = "#" id = "{{fornec.Nome}}" >{{fornec.Nome}}</a>
+                  <a href = "../visualisar_fornecedor/{{ fornec.id }}" id = "{{fornec.Nome}}" >{{fornec.Nome}}</a>
                </td>
                <td>
                   {{fornec.Endereco}}
@@ -45,15 +44,6 @@
                <td>
                   {{fornec.CNPJ}}
                </td>
-               <td class = "alter-col" colspan = "2">
-
-                  {% csrf_token %}
-                  <form class = "remove-forn" method = "POST" action = "../remover_forn">   
-                  </form>
-
-                  <form class = "alterar-forn" method = "GET" action = "../alterar_forn">   
-                  </form>
-               </td> 
             </tr>
          {% endfor %}
       </tbody>
@@ -92,55 +82,55 @@
 
    <script>
 
-      $( document ).ready( function(){
+      // $( document ).ready( function(){
 
-         $( "td.alter-col" ).each( function(){
+      //    $( "td.alter-col" ).each( function(){
 
-            let top = $( this ).parent();
-            let id  = $( top ).find( "th" ).text();
-            console.log( id );
+      //       let top = $( this ).parent();
+      //       let id  = $( top ).find( "th" ).text();
+      //       console.log( id );
 
-            $( this ).find( "form" ).each( function(){
+      //       $( this ).find( "form" ).each( function(){
 
-               $( this ).append( `
-                  <input name = "forn_id" value = "${ id }">
-               `);
+      //          $( this ).append( `
+      //             <input name = "forn_id" value = "${ id }">
+      //          `);
 
-               $( this ).addClass( "d-none" );
-            });
+      //          $( this ).addClass( "d-none" );
+      //       });
 
-            $( this ).append( `
-               <button class = " btn btn-del btn-outline-danger">
-                  remover
-               </button>
-            ` );
-            let m = $( this ).find( ".btn-del" )
-            let n = $( this ).find( ".remove-forn" )
-            $( m ).insertAfter( n );
+      //       $( this ).append( `
+      //          <button class = " btn btn-del btn-outline-danger">
+      //             remover
+      //          </button>
+      //       ` );
+      //       let m = $( this ).find( ".btn-del" )
+      //       let n = $( this ).find( ".remove-forn" )
+      //       $( m ).insertAfter( n );
 
-            $( this ).append( `
-               <button class = " btn btn-alter btn-outline-secondary">
-                  alterar
-               </button>
-            ` );
-            m = $( this ).find( ".btn-alter" )
-            n = $( this ).find( ".alterar-forn" )
-            $( m ).insertAfter( n );
-         })
+      //       $( this ).append( `
+      //          <button class = " btn btn-alter btn-outline-secondary">
+      //             alterar
+      //          </button>
+      //       ` );
+      //       m = $( this ).find( ".btn-alter" )
+      //       n = $( this ).find( ".alterar-forn" )
+      //       $( m ).insertAfter( n );
+      //    })
 
-         $( ".btn-del" ).click( function(){
+      //    $( ".btn-del" ).click( function(){
             
-            let form = $( this ).prev();
-            url = $( form ).attr( "action" );
-            console.log( url );
+      //       let form = $( this ).prev();
+      //       url = $( form ).attr( "action" );
+      //       console.log( url );
 
-            data = $( form ).serializeArray();
-            console.log( data );
+      //       data = $( form ).serializeArray();
+      //       console.log( data );
 
-            $.post( url , data , function(){
-            })
-         })
+      //       $.post( url , data , function(){
+      //       })
+      //    })
 
-      })
+      // })
    </script>
 {% endblock %}

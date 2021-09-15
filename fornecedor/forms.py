@@ -137,7 +137,5 @@ class FornecedorForm( forms.ModelForm ):
         if valida_nome_endr( nome_str ):
             return nome_str
         
-        raise forms.ValidationError( 'Nome invalido: Apenas letras, números e espaços')
+        raise forms.ValidationError( 'Nome invalido: Apenas letras, números e espaços' )
 
-class FornecedorSelect( forms.ModelForm ):
-    pass

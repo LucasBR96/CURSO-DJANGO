@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+    Cadastro de Fornecedor
+{% endblock %}
+
+{% block corpo %}
+
+    {% if messages %}
+
+        {% for message in messages %}
+        <div class = "row text-center">
+            <div class = "alert alert-primary mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
+                {{ message }}
+            </div>
+        </div>
+        {% endfor %}
+
+    {% endif %}
+    <div class = "container" style = "margin-top: 80px ;">
+
+        <div class = "row mb-2">
+            <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline ; font-size: large;">Nome</div>
+            <div class = "col-6">{{ form.Nome }}</div>
+        </div>
+
+        <div class = "row mb-2">
+            <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large">Endereco</div>
+            <div class = "col-6">{{ form.Endereco }}</div>
+        </div>
+
+        <div class = "row mb-2">
+            <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large;">Telefone</div>
+            <div class = "col-6">{{ form.Telefone }}</div>
+        </div>
+
+        <div class = "row mb-2">
+            <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large;">CNPJ</div>
+            <div class = "col-6">{{ form.CNPJ }}</div>
+        </div>
+
+    </div>
+
+    <div class = "row" style = "margin-top: 90px; margin-bottom: 60px;" >
+        <div class = "col-6 text-center">
+            <form class = "remove-form" style= "display: none;" action = "../remover_forn" method = "POST" novalidate>
+                <input type="text" value = "{{ form.id }}">
+            </form>
+            <button class = "btn btn-outline-primary btn-del"> remover </button>
+        </div>
+        <div class = "col-6 text-center">
+            <form class = "alter-form" style= "display: none;" method = "GET" novalidate>
+                <input type="text" value = "{{ form.id }}">
+            </form>
+            <button class = "btn btn-outline-primary btn-del"> alterar </button>
+        </div>
+    </div>
+
+{% endblock %}
