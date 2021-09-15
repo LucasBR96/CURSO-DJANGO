@@ -16,6 +16,7 @@
         {% endblock %}
     </style>
 </head>
+
 <body class="barra">
 
     <div class="container mt-3 mb-2">
@@ -145,13 +146,8 @@
     <script src="{% static 'js/popper.js' %}"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
-    <script>
-        $(document).ready(function(){
-
-            {% block domready %}
-                
-            {% endblock %}
-        });
-    </script>
+    {% block domready %}
+    {% endblock %}
+    
 </body>
 </html>

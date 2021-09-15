@@ -2,8 +2,12 @@ import fornecedor
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from fornecedor.models import Fornecedor
-from fornecedor.forms import FornecedorForm
+from fornecedor.forms import FornecedorForm , FornecedorSelect
 from django.contrib import messages
+
+def remover_forn( request ):
+    pass
+
 
 def lista_fornecedor(request):
     lista_de_fornecedores = Fornecedor.objects.all()

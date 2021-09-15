@@ -62,6 +62,7 @@ def valida_nome_endr( nome_str ):
 
 
 class FornecedorForm( forms.ModelForm ):
+
     
     class Meta:
         model = Fornecedor
@@ -137,3 +138,6 @@ class FornecedorForm( forms.ModelForm ):
             return nome_str
         
         raise forms.ValidationError( 'Nome invalido: Apenas letras, números e espaços')
+
+class FornecedorSelect( forms.ModelForm ):
+    pass
