@@ -47,21 +47,22 @@ def lista_fornecedor(request):
 
 def cadastra_fornecedor( request ):
 
+
     if request.POST:
 
-        
         forn_id = request.session.get( 'forn_id' )
-
         #------------------------------------------------------
         # Alterando um fornecedor ja cadastrado
-        if forn_id is not None:
+        if forn_id:
             fornec = get_object_or_404( Fornecedor , pk = forn_id )
             fornecedor_form = FornecedorForm( data = request.POST , instance = fornec )
+            del request.session['forn_id']
 
         #----------------------------------------------------
         # adicionando um novo fornecedor
         else:
             fornecedor_form = FornecedorForm( data = request.POST )
+            print( fornecedor_form )
 
         if fornecedor_form.is_valid():
 
@@ -71,7 +72,7 @@ def cadastra_fornecedor( request ):
             form = fornecedor_form.save()
 
             msg = "Produto adicionado com sucesso!"
-            if forn_id is not None:
+            if forn_id:
                 msg = "Produto alterado com sucesso!"
             return JsonResponse( { "mensage":msg , "forn_id": form.id } )
     else:
