@@ -17,37 +17,23 @@
       </p>
    </div> 
 
-   <table style='width:100%'
-          class='table table-striped table-sm table-responsive mb-4'>
-      <thead style='width:100%' >
-         <tr class = 'text-center'>
-            <th scope="col" style = "display: none;">#</th>
-            <th scope="col" style = "width: 25%;">Nome</th>
-            <th scope="col" style = "width: 25%;">Endereco</th>
-            <th scope="col" style = "width: 25%;">Telefone</th>
-            <th scope="col" style = "width: 25%;">CNPJ</th>
-         </tr>
-      </thead>
-      <tbody>
-         {% for fornec in forn %}
-            <tr class = "text-center">
-               <th scope="col" style = "display: none;">{{ fornec.id }}</th>
-               <td>
-                  <a href = "../visualisar_fornecedor/{{ fornec.id }}" id = "{{fornec.Nome}}" >{{fornec.Nome}}</a>
-               </td>
-               <td>
-                  {{fornec.Endereco}}
-               </td>
-               <td>
-                  {{fornec.Telefone}}
-               </td>
-               <td>
-                  {{fornec.CNPJ}}
-               </td>
-            </tr>
-         {% endfor %}
-      </tbody>
-   </table>
+   <div class = "row" id = "fornec-card-display" >
+      {% for fornec in forn %}
+      <div class = "col-12 col-md-6 col-lg-4">
+         <div class = "card forn-card text-center border-secondary mx-1 mb-1"
+         id = "{{fornec.id}}">
+            <div class = "card-body">
+               <!-- <a href = "../visualisar_fornecedor/{{ fornec.id }}" style= "display: none;" ></a> -->
+               <img src = ... alt = "logo aqui" style = " width: 80% ; height: 80%;" >
+               <p style = "font-size: large;"
+                   class = "mt-2 mb-0 text-danger">
+                  {{ fornec.Nome }}
+               </p>
+            </div>
+         </div>
+      </div>
+      {% endfor %}
+   </div>
 
    <div style='font-size: 14px; margin-bottom: 28px'>
       {% if forn.has_other_pages %}
@@ -82,55 +68,32 @@
 
    <script>
 
-      // $( document ).ready( function(){
+      $( document ).ready( function(){
 
-      //    $( "td.alter-col" ).each( function(){
+         $( ".forn-card" ).hover(
 
-      //       let top = $( this ).parent();
-      //       let id  = $( top ).find( "th" ).text();
-      //       console.log( id );
-
-      //       $( this ).find( "form" ).each( function(){
-
-      //          $( this ).append( `
-      //             <input name = "forn_id" value = "${ id }">
-      //          `);
-
-      //          $( this ).addClass( "d-none" );
-      //       });
-
-      //       $( this ).append( `
-      //          <button class = " btn btn-del btn-outline-danger">
-      //             remover
-      //          </button>
-      //       ` );
-      //       let m = $( this ).find( ".btn-del" )
-      //       let n = $( this ).find( ".remove-forn" )
-      //       $( m ).insertAfter( n );
-
-      //       $( this ).append( `
-      //          <button class = " btn btn-alter btn-outline-secondary">
-      //             alterar
-      //          </button>
-      //       ` );
-      //       m = $( this ).find( ".btn-alter" )
-      //       n = $( this ).find( ".alterar-forn" )
-      //       $( m ).insertAfter( n );
-      //    })
-
-      //    $( ".btn-del" ).click( function(){
+            //-----------------------------------------------------
+            // hover in
+            function(){
+               $( this ).addClass( "border-primary" );
+               $( this ).removeClass( "border-secondary" );
+            },
             
-      //       let form = $( this ).prev();
-      //       url = $( form ).attr( "action" );
-      //       console.log( url );
+            //-----------------------------------------------------
+            // hover out
+            function(){
+               $( this ).removeClass( "border-primary" );
+               $( this ).addClass( "border-secondary" );
+            }
+         )
 
-      //       data = $( form ).serializeArray();
-      //       console.log( data );
+         $( ".forn-card" ).click( function(){
 
-      //       $.post( url , data , function(){
-      //       })
-      //    })
+            let id = $( this ).attr( 'id' );
+            s = "../visualisar_fornecedor/" + id;
+            window.location.assign( s );
 
-      // })
+         })
+      })
    </script>
 {% endblock %}

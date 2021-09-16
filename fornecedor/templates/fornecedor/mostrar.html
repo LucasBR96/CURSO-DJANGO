@@ -22,39 +22,78 @@
     <div class = "container" style = "margin-top: 80px ;">
 
         <div class = "row mb-2">
-            <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline ; font-size: large;">Nome</div>
-            <div class = "col-6">{{ forn.Nome }}</div>
+            <div style = "height: 100%;" 
+            class = "col-md-4 col-12 border-right">
+
+                <div class = "card h-100 border-0">
+                    <div class = "card-body">
+                        <div class = "row">
+                            <h6 class = "col-4 font-weight-bold" style = "font-size: medium;">Nome</h6>
+                            <p class = "col-8" style = "font-size: small;">&nbsp;{{ forn.Nome }}</p>
+                        </div>
+        
+                        <div class = "row">    
+                            <h6 class = "col-4 font-weight-bold" style = "font-size: medium;">CNPJ</h6>
+                            <p class = "col-8" style = "font-size: small;">&nbsp;{{ forn.CNPJ }}</p>
+                        </div>
+        
+                        <div class = "row">
+                            <h6 class = "col-4 font-weight-bold" style = "font-size: medium;">Telefone</h6>
+                            <p class = "col-8" style = "font-size: small;">&nbsp;{{ forn.Telefone }}</p>
+                        </div>
+        
+                        <div class = "row">
+                            <h6 class = "col-4 font-weight-bold" style = "font-size: medium;">Endereço</h6>
+                            <p class = "col-8" style = "font-size: small;">&nbsp;{{ forn.Endereco }}</p>
+                        </div>
+        
+                        <div class = "row">
+                            <h6 class = "col-4 font-weight-bold" style = "font-size: medium;">E-mail</h6>
+                            <p class = "col-8" style = "font-size: small;" alt = "lolololo">&nbsp;{{ forn.Mail }}</p>
+                        </div>
+                    </div>
+                </div> 
+
+            </div>
+
+            <div style = "height: 100%;" class = "col-md-4 col-12">
+                <div class = "card h-100 border-0">
+                    <div class = "card-body">
+                        <h5 class = "col-12 mb-1 font-weight-bold" , style = "font-size: large;">
+                            Sobre
+                        </h5>
+                        
+                        <p class = "col-12">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare varius 
+                            nulla nec tincidunt. Morbi ut lacus blandit, fringilla nisl sit amet, 
+                            vestibulum nunc. Suspendisse ullamcorper vestibulum finibus. Phasellus 
+                            tincidunt bibendum erat sit amet interdum. Ut sed nunc vitae metus 
+                            tempor tincidunt. Integer nunc tellus, convallis fringilla pulvinar sit 
+                            amet, ornare eget quam. Vivamus ac consequat justo. Aliquam sapien nibh,
+                            egestas ut porta non, vehicula sit amet nisi. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style = "height: 100%;" class = "col-md-4 col-12 border-left">
+                <img src = ... alt = "logo aqui">
+            </div>
         </div>
 
-        <div class = "row mb-2">
-            <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large">Endereco</div>
-            <div class = "col-6">{{ forn.Endereco }}</div>
-        </div>
+        <div class = "row" style = "margin-top: 90px; margin-bottom: 60px;" >
+            <div class = "col-12 col-md-6 text-center">
 
-        <div class = "row mb-2">
-            <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large;">Telefone</div>
-            <div class = "col-6">{{ forn.Telefone }}</div>
-        </div>
+                <form class = "remove-form" style= "display: none;" action = "../remover_forn/" method = "POST" novalidate>
+                    {% csrf_token %}
+                    <input type="text" name = "forn_id" value = "{{ forn.id }}">
+                </form>
+                <button class = "btn btn-outline-primary" id = "btn-del"> remover </button>
 
-        <div class = "row mb-2">
-            <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large;">CNPJ</div>
-            <div class = "col-6">{{ forn.CNPJ }}</div>
-        </div>
-
-    </div>
-
-    <div class = "row" style = "margin-top: 90px; margin-bottom: 60px;" >
-        <div class = "col-6 text-center">
-
-            <form class = "remove-form" style= "display: none;" action = "../remover_forn/" method = "POST" novalidate>
-                {% csrf_token %}
-                <input type="text" name = "forn_id" value = "{{ forn.id }}">
-            </form>
-            <button class = "btn btn-outline-primary" id = "btn-del"> remover </button>
-
-        </div>
-        <div class = "col-6 text-center">
-            <a href = "../edita_fornecedor/{{ forn.id }}" class = "btn btn-outline-primary btn-alt"> alterar</a>
+            </div>
+            <div class = "col-6 col-md-6 text-center">
+                <a href = "../edita_fornecedor/{{ forn.id }}" class = "btn btn-outline-primary btn-alt"> alterar</a>
+            </div>
         </div>
     </div>
 
