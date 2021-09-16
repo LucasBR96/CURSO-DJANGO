@@ -3,17 +3,24 @@ import fornecedor
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from fornecedor.models import Fornecedor
-from fornecedor.forms import FornecedorForm
+from fornecedor.forms import FornecedorForm , FornSelect
 from django.contrib import messages
 from django.http import JsonResponse
 
 def mostrar_fornecedor( request , **kwargs ):
 
     forn = Fornecedor.objects.get( id = kwargs[ "id" ] )
-    return render( request , "fornecedor/mostrar.html" , {'form':forn } )
+    return render( request , "fornecedor/mostrar.html" , {'forn':forn } )
 
 def remover_forn( request ):
-    pass
+    
+    form = FornSelect( request.POST )
+    print( form )
+    if form.is_valid():
+        forn_id = form.cleaned_data[ 'forn_id' ]
+        Fornecedor.objects.filter( id = forn_id ).delete()
+
+        return JsonResponse( { "success" : True } )
 
 def lista_fornecedor(request):
     lista_de_fornecedores = Fornecedor.objects.all()

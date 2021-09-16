@@ -23,39 +23,70 @@
 
         <div class = "row mb-2">
             <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline ; font-size: large;">Nome</div>
-            <div class = "col-6">{{ form.Nome }}</div>
+            <div class = "col-6">{{ forn.Nome }}</div>
         </div>
 
         <div class = "row mb-2">
             <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large">Endereco</div>
-            <div class = "col-6">{{ form.Endereco }}</div>
+            <div class = "col-6">{{ forn.Endereco }}</div>
         </div>
 
         <div class = "row mb-2">
             <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large;">Telefone</div>
-            <div class = "col-6">{{ form.Telefone }}</div>
+            <div class = "col-6">{{ forn.Telefone }}</div>
         </div>
 
         <div class = "row mb-2">
             <div class = "col-2 text-center pt-0 font-weight-bold" style="display: inline; font-size: large;">CNPJ</div>
-            <div class = "col-6">{{ form.CNPJ }}</div>
+            <div class = "col-6">{{ forn.CNPJ }}</div>
         </div>
 
     </div>
 
     <div class = "row" style = "margin-top: 90px; margin-bottom: 60px;" >
         <div class = "col-6 text-center">
-            <form class = "remove-form" style= "display: none;" action = "../remover_forn" method = "POST" novalidate>
-                <input type="text" value = "{{ form.id }}">
+
+            <form class = "remove-form" style= "display: none;" action = "../remover_forn/" method = "POST" novalidate>
+                {% csrf_token %}
+                <input type="text" name = "forn_id" value = "{{ forn.id }}">
             </form>
-            <button class = "btn btn-outline-primary btn-del"> remover </button>
+            <button class = "btn btn-outline-primary" id = "btn-del"> remover </button>
+
         </div>
         <div class = "col-6 text-center">
+
             <form class = "alter-form" style= "display: none;" method = "GET" novalidate>
-                <input type="text" value = "{{ form.id }}">
+                {% csrf_token %}
+                <input type="text" value = "{{ forn.id }}">
             </form>
-            <button class = "btn btn-outline-primary btn-del"> alterar </button>
+
+            <button class = "btn btn-outline-primary btn-alt"> alterar </button>
         </div>
     </div>
+
+{% endblock %}
+
+
+{% block domready %}
+
+   <script>
+       $( document ).ready( function(){
+
+           $( "#btn-del" ).click( function(){
+
+               let form = $( this ).prev();
+               let url  = $( form ).attr( "action" );
+               console.log( url );
+
+               let data = $( form ).serializeArray();
+               console.log( data )
+
+               $.post( url , data , function(){
+                   $.get( "../lista_fornecedor/");
+               } )
+
+           })
+       } )
+   </script>
 
 {% endblock %}

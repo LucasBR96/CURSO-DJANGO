@@ -139,3 +139,11 @@ class FornecedorForm( forms.ModelForm ):
         
         raise forms.ValidationError( 'Nome invalido: Apenas letras, números e espaços' )
 
+
+class FornSelect( forms.Form ):
+
+    forn_id = forms.CharField( 
+        widget = forms.TextInput( attrs = {
+            'style' : "display : none"
+        })
+    )
