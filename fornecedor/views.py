@@ -1,7 +1,7 @@
 from django.http.response import JsonResponse
 import fornecedor
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render , redirect , get_object_or_404
 from fornecedor.models import Fornecedor
 from fornecedor.forms import FornecedorForm , FornSelect
 from django.contrib import messages
@@ -20,7 +20,18 @@ def remover_forn( request ):
         forn_id = form.cleaned_data[ 'forn_id' ]
         Fornecedor.objects.filter( id = forn_id ).delete()
 
-        return JsonResponse( { "success" : True } )
+        return redirect( '../lista_fornecedor/' )
+    
+def edita_fornecedor( request , **kwargs ):
+    
+
+    fornecedor_edit = Fornecedor.objects.get( id = kwargs[ "id" ] )
+    fornecedor_edit_form = FornecedorForm( instance = fornecedor_edit )
+    request.session[ 'forn_id' ] = kwargs["id"]
+
+    return render( request , "fornecedor/form.html" , {"formulario": fornecedor_edit_form} )
+
+
 
 def lista_fornecedor(request):
     lista_de_fornecedores = Fornecedor.objects.all()
@@ -37,14 +48,32 @@ def lista_fornecedor(request):
 def cadastra_fornecedor( request ):
 
     if request.POST:
-        fornecedor_form = FornecedorForm( data = request.POST )
+
+        
+        forn_id = request.session.get( 'forn_id' )
+
+        #------------------------------------------------------
+        # Alterando um fornecedor ja cadastrado
+        if forn_id is not None:
+            fornec = get_object_or_404( Fornecedor , pk = forn_id )
+            fornecedor_form = FornecedorForm( data = request.POST , instance = fornec )
+
+        #----------------------------------------------------
+        # adicionando um novo fornecedor
+        else:
+            fornecedor_form = FornecedorForm( data = request.POST )
+
         if fornecedor_form.is_valid():
+
+            #-----------------------------------------------------
+            # Vai fazer um SQL insert se o fornecedor for novo, e 
+            # um SQL update se for um produto alterado.
             form = fornecedor_form.save()
-            # messages.add_message( request , messages.INFO , "fornecedor cadastrado com sucesso" )
 
-            # return render( request , "fornecedor/acpt.html" , {'form':form } )
-
-            return JsonResponse( { "success":True } )
+            msg = "Produto adicionado com sucesso!"
+            if forn_id is not None:
+                msg = "Produto alterado com sucesso!"
+            return JsonResponse( { "mensage":msg , "forn_id": form.id } )
     else:
         fornecedor_form = FornecedorForm()
     return render( request, 'fornecedor/form.html', { 'formulario': fornecedor_form }) 

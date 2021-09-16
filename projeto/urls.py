@@ -4,7 +4,7 @@ from django.urls import path, include
 from projeto import views
 
 urlpatterns = [
-    path('', lambda request : redirect("carrinho/")),
+    path('', lambda request : redirect("fornecedor/")),
     path('carrinho/', include('carrinho.urls')),
     path('produto/', include('produto.urls')),
     path('admin/', admin.site.urls),

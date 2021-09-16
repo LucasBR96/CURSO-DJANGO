@@ -3,11 +3,7 @@
 {% load static %}
 
 {% block titulo %}
-    {% if 'forn_id' in request.session %}
-        Alterando Fornecedor
-    {% else %}
-        Cadastrando Fornecedor
-    {% endif %}
+    Cadastro de Fornecedor
 {% endblock %}
 
 {% block corpo %}
@@ -16,28 +12,8 @@
     <h5 class="mb-3 text-center">Cadastro de Fornecedor</h5>
     <hr class = "mt-0">
 
-    <form id = "fornecedor-form" action = '../cadastra_fornecedor/' method = 'POST' novalidate>
+    <form id = "fornecedor-form" action = '' method = 'POST' novalidate>
         {% csrf_token %}
-        
-    {% comment %}
-        {% for tup , obj in formulario.fields.items %}
-        <div class = "row mb-2">
-            <div class = "col-4 text-center pt-1" style="display: inline">{{ tup }}</div>
-            <div class = "col-8">
-                <input type="text" id="{{tup}}" style="font-size : 15px"
-                class="form-control form-control-sm mr-2 mb-2"
-                placeholder="{{tup}}">
-                {% if obj.errors %}
-                    <div class = "alert alert-danger mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
-                        {% for erro in obj.errors %}
-                            {{ erro }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        {% endfor %}
-    {% endcomment %}
 
         <div class = "row mb-2">
             <div class = "col-4 text-center pt-1" style="display: inline">Nome</div>
@@ -96,37 +72,8 @@
         </div>
 
         <div class ="text-center mt-3" >
-            <button id = "submit-btn" class = "btn btn-outline-danger" href = "#" >  
-                {% if 'forn_id' in request.session %}
-                    Alterar
-                {% else %}
-                    Cadastrar
-                {% endif %}
-            </button>
+            <button id = "submit-btn" class = "btn btn-outline-danger" href = "#" > Cadastrar </button>
         </div>
         
     </form>
 </div>
-
-
-{% endblock %}
-
-{% block domready %}
-<script>
-    $( document ).ready( function(){
-        $( "#submit-btn" ).click( function( event ){
-
-            event.preventDefault();
-
-            let form = $( "#fornecedor-form" );
-            url = $( form ).attr( "action" );
-            data = $( form ).serializeArray();
-            $.post( url , data , function( resposta ){
-                alert( resposta.msg );
-                window.location.replace("../mostrar_fornecedor/" + resposta.forn_id );
-
-            })
-        })
-    })
-</script>
-{% endblock %}
