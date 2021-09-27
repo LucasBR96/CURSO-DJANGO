@@ -10,7 +10,7 @@ from django.http import JsonResponse
 def mostrar_fornecedor( request , **kwargs ):
 
     forn = Fornecedor.objects.get( id = kwargs[ "id" ] )
-    return render( request , "fornecedor/mostrar.html" , {'forn':forn } )
+    return render( request , "fornecedor/mostrar.html" , {'forn':forn.get_visual_tuple() } )
 
 def remover_forn( request ):
     
@@ -44,12 +44,14 @@ def buscar_fornecedor( request , nome ):
     return JsonResponse( resp )
     
 def lista_fornecedor(request):
-    lista_de_fornecedores = Fornecedor.objects.all()
+
+    foo = lambda x : x.get_card_tuple()
+    lista_de_fornecedores = [ foo( x ) for x in Fornecedor.objects.all() ]
 
     #---------------------------------------------------------
     # Pagina 1 : 1 - 3
     # Pagina 2 : 4 - 6
-    paginator = Paginator(lista_de_fornecedores, 4)
+    paginator = Paginator(lista_de_fornecedores, 6)
     pagina = request.GET.get('pagina')
     page_obj = paginator.get_page(pagina)
 
