@@ -12,6 +12,10 @@ class Fornecedor( models.Model ):
     Telefone = models.CharField( max_length = 25 , unique = True , blank = False )
     CNPJ     = models.CharField( max_length = 30 , unique = True , blank = False )
 
+    #--------------------------------------------------------------------------
+    # Aprendendo upload de imagem
+    Logo     = models.ImageField( upload_to = "images/" , default = 'hortifruti-icon.png')
+
     class Meta:
         db_table = 'fornecedor'
 
