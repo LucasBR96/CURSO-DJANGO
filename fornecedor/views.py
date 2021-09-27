@@ -85,10 +85,10 @@ def cadastra_fornecedor( request ):
             # um SQL update se for um produto alterado.
             form = fornecedor_form.save()
 
-            msg = "Produto adicionado com sucesso!"
-            if forn_id:
-                msg = "Produto alterado com sucesso!"
-            return JsonResponse( { "mensage":msg , "forn_id": form.id } )
+            # msg = "Produto adicionado com sucesso!"
+            # if forn_id:
+            #     msg = "Produto alterado com sucesso!"
+            # return JsonResponse( { "mensage":msg , "forn_id": form.id } )
     else:
         fornecedor_form = FornecedorForm()
     return render( request, 'fornecedor/form.html', { 'formulario': fornecedor_form }) 
