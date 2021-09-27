@@ -10,4 +10,5 @@ urlpatterns = [
     path('remover_forn/', views.remover_forn , name = 'remover_forn'),
     path('visualisar_fornecedor/<int:id>', views.mostrar_fornecedor ),
     path('edita_fornecedor/<int:id>', views.edita_fornecedor ),
+    path('buscar_fornecedor/<str:nome>' , views.buscar_fornecedor)
 ]

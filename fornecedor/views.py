@@ -24,15 +24,25 @@ def remover_forn( request ):
     
 def edita_fornecedor( request , **kwargs ):
     
-
     fornecedor_edit = Fornecedor.objects.get( id = kwargs[ "id" ] )
     fornecedor_edit_form = FornecedorForm( instance = fornecedor_edit )
     request.session[ 'forn_id' ] = kwargs["id"]
 
     return render( request , "fornecedor/form.html" , {"formulario": fornecedor_edit_form} )
 
+def buscar_fornecedor( request , nome ):
 
+    resp = dict()
+    try:
+        fornec = Fornecedor.objects.get( Nome = nome )
+        resp[ 'valid' ] = True
+        resp[ 'id' ]    = fornec.id
 
+    except Fornecedor.DoesNotExist:
+        resp[ 'valid' ] = False
+
+    return JsonResponse( resp )
+    
 def lista_fornecedor(request):
     lista_de_fornecedores = Fornecedor.objects.all()
 

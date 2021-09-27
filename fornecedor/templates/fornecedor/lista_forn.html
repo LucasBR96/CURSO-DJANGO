@@ -17,6 +17,18 @@
       </p>
    </div> 
 
+   <div class = "row mb-4" id = "busca_div">
+
+      <div class = "col-12 col-md-8">
+         <input class = "form-control form-control-sm" style = "font-size: 18px;" type = "text" name = "forn_nome" placeholder = "pesquise o fornecedor aqui">
+         <div class = "invalid-feedback"> Nome não encontrado </div>
+      </div>
+      <div class = "col-md-2">
+         <button class = "btn btn-outline-primary btn-busca" style = "font-size: 18px;"> Buscar </button>
+      </div>
+
+   </div>
+
    <div class = "row" id = "fornec-card-display" >
       {% for fornec in forn %}
       <div class = "col-12 col-md-6 col-lg-4">
@@ -93,6 +105,25 @@
             s = "../visualisar_fornecedor/" + id;
             window.location.assign( s );
 
+         })
+
+         $( ".btn-busca" ).click( function(){
+            
+            let m = document.getElementById( "busca_div" );
+            m = $( m ).find( "input" );
+
+            let url = "../buscar_fornecedor/" + m.val();
+            console.log( url );
+
+            $.get( url , function( resposta ){
+               if ( resposta.valid ){
+                  url = "../visualisar_fornecedor/" + resposta.id;
+                  window.location.assign( url );
+                  return;
+               }
+               $( m ).addClass( "is-invalid" );
+
+            })
          })
       })
    </script>
