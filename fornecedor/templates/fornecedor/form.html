@@ -23,7 +23,7 @@
     </h5>
     <hr class = "mt-0">
 
-    <form id = "fornecedor-form" action = '../cadastra_fornecedor/' method = 'POST' novalidate>
+    <form id = "fornecedor-form" action = '../cadastra_fornecedor/' method = 'POST' enctype = "multipart/form-data">
         {% csrf_token %}
         
         <div class = "row mb-2">
@@ -82,8 +82,29 @@
             </div>
         </div>
 
+        <div class = "row mb-2">
+            <div class = "col-4 text-center pt-1" style="display: inline">Logo</div>
+            <div class = "col-8">
+                {{ formulario.Logo }}
+                {% if formulario.Logo.errors %}
+                    <div class = "alert alert-danger mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
+                        {% for erro in formulario.Logo.errors %}
+                            <small>{{ erro }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
         <div class ="text-center mt-3" >
-            <button id = "submit-btn" class = "btn btn-outline-danger" href = "#" >  
+            <!-- <button id = "submit-btn" class = "btn btn-outline-danger" href = "#" >  
+                {% if 'forn_id' in request.session %}
+                    Alterar
+                {% else %}
+                    Cadastrar
+                {% endif %}
+            </button> -->
+            <buttton type ="submit" id = "submit-btn" class = "btn btn-outline-danger" href = "#" >  
                 {% if 'forn_id' in request.session %}
                     Alterar
                 {% else %}
@@ -100,23 +121,29 @@
 
 {% block domready %}
 <script>
-    $( document ).ready( function(){
-        $( "#submit-btn" ).click( function( event ){
+    // $( document ).ready( function(){
+    //     $( "#submit-btn" ).click( function( event ){
 
-            event.preventDefault();
+    //         event.preventDefault();
 
-            let form = $( "#fornecedor-form" );
-            url = $( form ).attr( "action" );
-            data = $( form ).serializeArray();
-            $.post( url , data , function( resposta ){
+    //         let form = $( "#fornecedor-form" );
+    //         let url = $( form ).attr( "action" );
 
-                console.log( resposta )
+    //         let data = new FormData( )
+    //         for( let data_item of form.serializeArray() ){
+    //             console.log( data_item );
+    //         }console.log( data )
+                        
+    //         $.post( url , data , function( resposta ){
 
-                alert( resposta.mensage );
-                window.location.replace("../visualisar_fornecedor/" + resposta.forn_id );
+    //             console.log( resposta )
 
-            })
-        })
-    })
+    //             alert( resposta.mensage );
+    //             window.location.replace("../visualisar_fornecedor/" + resposta.forn_id );
+
+    //         })
+
+    //     })
+    // })
 </script>
 {% endblock %}

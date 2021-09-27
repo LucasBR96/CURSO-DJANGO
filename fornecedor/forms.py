@@ -100,6 +100,14 @@ class FornecedorForm( forms.ModelForm ):
         widget = forms.TextInput( attrs = {'class':'form-control form-control-sm', 'max-lenght': '30'})
     )
 
+    Logo = forms.ImageField(
+        error_messages = {
+            "required":"Campo obrigatório",
+            "ivalid_image":"Imagem Invalida"
+        },
+        widget = forms.FileInput( attrs = { 'class':'btn btn-outline-primary btn-sm'})
+    )
+
     def clean_Telefone( self ):
 
         tel_str = self.cleaned_data[ 'Telefone' ]

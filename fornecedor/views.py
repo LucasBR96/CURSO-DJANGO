@@ -62,18 +62,20 @@ def cadastra_fornecedor( request ):
 
     if request.POST:
 
+        print( request.FILES )
+        
         forn_id = request.session.get( 'forn_id' )
         #------------------------------------------------------
         # Alterando um fornecedor ja cadastrado
         if forn_id:
             fornec = get_object_or_404( Fornecedor , pk = forn_id )
-            fornecedor_form = FornecedorForm( data = request.POST , instance = fornec )
+            fornecedor_form = FornecedorForm( data = request.POST, files = request.FILES, instance = fornec )
             del request.session['forn_id']
 
         #----------------------------------------------------
         # adicionando um novo fornecedor
         else:
-            fornecedor_form = FornecedorForm( data = request.POST )
+            fornecedor_form = FornecedorForm( data = request.POST, files = request.FILES )
             print( fornecedor_form )
 
         if fornecedor_form.is_valid():
