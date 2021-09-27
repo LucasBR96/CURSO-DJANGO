@@ -66,7 +66,7 @@ class FornecedorForm( forms.ModelForm ):
     
     class Meta:
         model = Fornecedor
-        fields = ( 'Nome' , 'Endereco' , 'Telefone', 'CNPJ' )
+        fields = ( 'Nome' , 'Endereco' , 'Telefone', 'CNPJ' , 'Logo' )
     
     Nome = forms.CharField(
         error_messages = { 

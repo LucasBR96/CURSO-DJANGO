@@ -57,9 +57,7 @@
         <div class = "row">
             <div class = "col-6" id = "logo-div-md">
                 <div class = "col text-center">
-                    {% if forn.Logo is None %}
-                        <img src="{% static 'images/hortifruti-icon.png' %}" style="width: 200px" alt="Hortifruti">
-                    {% endif %}
+                    <img src="{{ forn.Logo.url }}" style="width: 200px" alt="Hortifruti">
                 </div>
             </div>
 

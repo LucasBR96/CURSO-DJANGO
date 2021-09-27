@@ -52,7 +52,7 @@ class Fornecedor( models.Model ):
             Telefone = self.formata_telefone(),
             CNPJ = self.formata_CNPJ(),
             Endereco = self.Endereco,
-            Logo = None
+            Logo = self.Logo
         )
     
     def get_card_tuple( self ):
@@ -60,5 +60,5 @@ class Fornecedor( models.Model ):
         return card_tuple(
             id = self.id,
             Nome = self.Nome,
-            Logo = None
+            Logo = self.Logo
         )
