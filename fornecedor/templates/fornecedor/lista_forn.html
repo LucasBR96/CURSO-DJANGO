@@ -36,9 +36,10 @@
          id = "{{fornec.id}}">
             <div class = "card-body">
                <!-- <a href = "../visualisar_fornecedor/{{ fornec.id }}" style= "display: none;" ></a> -->
-               <img src = ... alt = "logo aqui" style = " width: 80% ; height: 80%;" >
-               <p style = "font-size: large;"
-                   class = "mt-2 mb-0 text-danger">
+               {% if fornec.Logo is None %}
+                  <img src = "{% static 'images/hortifruti-icon.png' %}" alt = "logo aqui" style = " width: 80% ; height: 80%;" >
+               {% endif %}
+               <p style = "font-size: large;" class = "mt-2 mb-0 text-danger">
                   {{ fornec.Nome }}
                </p>
             </div>
