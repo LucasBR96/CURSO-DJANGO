@@ -45,13 +45,20 @@ def buscar_fornecedor( request , nome ):
     
 def lista_fornecedor(request):
 
-    foo = lambda x : x.get_card_tuple()
+    #--------------------------------------------------------
+    # Caso o usuario tenha clicado em "editar fornecedor"
+    # Mas tenha cancelado a edição.
+    forn_id = request.session.get( 'forn_id' )
+    if forn_id:
+        del request.session['forn_id']
+
+    foo = lambda x : x.get_trow_tuple()
     lista_de_fornecedores = [ foo( x ) for x in Fornecedor.objects.all() ]
 
     #---------------------------------------------------------
     # Pagina 1 : 1 - 3
     # Pagina 2 : 4 - 6
-    paginator = Paginator(lista_de_fornecedores, 6)
+    paginator = Paginator(lista_de_fornecedores, 4)
     pagina = request.GET.get('pagina')
     page_obj = paginator.get_page(pagina)
 
@@ -59,7 +66,7 @@ def lista_fornecedor(request):
 
 def cadastra_fornecedor( request ):
 
-
+    
     if request.POST:
 
         forn_id = request.session.get( 'forn_id' )

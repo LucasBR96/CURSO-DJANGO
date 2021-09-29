@@ -17,35 +17,57 @@
       </p>
    </div> 
 
-   <div class = "row mb-4" id = "busca_div">
+   <div class = "row mb-4">
+      <div class = "col-12 col-md-9 mb-2">
+         <div class = "row" id = "busca_div">
 
-      <div class = "col-12 col-md-8">
-         <input class = "form-control form-control-sm" style = "font-size: 18px;" type = "text" name = "forn_nome" placeholder = "pesquise o fornecedor aqui">
-         <div class = "invalid-feedback"> Nome não encontrado </div>
-      </div>
-      <div class = "col-md-2">
-         <button class = "btn btn-outline-primary btn-busca" style = "font-size: 18px;"> Buscar </button>
+            <div class = "col-8">
+               <input class = "form-control form-control-sm" style = "font-size: 18px;" type = "text" name = "forn_nome" placeholder = "pesquise o fornecedor aqui">
+               <div class = "invalid-feedback"> Nome não encontrado </div>
+            </div>
+            <div class = "col-4">
+               <button class = "btn btn-outline-primary btn-busca" style = "font-size: 18px; padding-bottom: 4px"> Buscar </button>
+            </div>
+
+         </div>
       </div>
 
+      <div class = "col-12 mb-2 col-md-3 d-flex justify-content-center" id = "cadastro_div">
+         <button class = "btn btn-outline-primary">
+            <a href = "../cadastra_fornecedor"
+            style = "color: inherit; padding-bottom : 4px;"> Cadastrar Novo </a>
+         </button>
+      </div>
    </div>
 
    <div class = "row" id = "fornec-card-display" >
-      {% for fornec in forn %}
-      <div class = "col-12 col-md-6 col-lg-4">
-         <div class = "card forn-card text-center border-secondary mx-1 mb-1"
-         id = "{{fornec.id}}">
-            <div class = "card-body">
-               <!-- <a href = "../visualisar_fornecedor/{{ fornec.id }}" style= "display: none;" ></a> -->
-               {% if fornec.Logo is None %}
-                  <img src = "{% static 'images/hortifruti-icon.png' %}" alt = "logo aqui" style = " width: 80% ; height: 80%;" >
-               {% endif %}
-               <p style = "font-size: large;" class = "mt-2 mb-0 text-danger">
-                  {{ fornec.Nome }}
-               </p>
-            </div>
-         </div>
+      <div class = "col-12 col-md-8 offset-md-2">
+         <table class = "table">
+
+            <thead class = "thead-dark">
+               <th scope="col" class = "d-none">#</th>
+               <th scope="col">Nome</th>
+               <th scope="col">CNPJ</th>
+               <th scope="col">Telefone</th>
+            </thead>
+            
+            <tbody>
+
+               {% for fornec in forn %}
+               <tr>
+                  <th scope = "row" class = "d-none" >{{ fornec.id }}</th>
+                  <td>
+                     <a href = "../visualisar_fornecedor/{{ fornec.id }}"> {{ fornec.Nome }}</a>
+                  </td>
+                  <td>{{ fornec.CNPJ }}</td>
+                  <td>{{ fornec.Telefone }}</td>
+               </tr>
+               {% endfor %}
+
+            </tbody>
+         </table>
       </div>
-      {% endfor %}
+   </div>
    </div>
 
    <div style='font-size: 14px; margin-bottom: 28px'>

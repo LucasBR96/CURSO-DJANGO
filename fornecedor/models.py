@@ -1,8 +1,8 @@
 from django.db import models
 from collections import namedtuple
 
-visual_tuple = namedtuple( 'visual_tuple', ['id' , 'Nome' , 'Telefone' , 'CNPJ' , 'Endereco' , 'Logo'] )
-card_tuple   = namedtuple( 'card_tuple', ['id' , 'Nome' , 'Logo'] )
+visual_tuple = namedtuple( 'visual_tuple', ['id' , 'Nome' , 'Telefone' , 'CNPJ' , 'Endereco'] )
+trow_tuple   = namedtuple( 'card_tuple', ['id' , 'Nome' , 'CNPJ', 'Telefone'] )
 
 # Create your models here.
 class Fornecedor( models.Model ):
@@ -48,13 +48,13 @@ class Fornecedor( models.Model ):
             Telefone = self.formata_telefone(),
             CNPJ = self.formata_CNPJ(),
             Endereco = self.Endereco,
-            Logo = None
         )
     
-    def get_card_tuple( self ):
+    def get_trow_tuple( self ):
 
-        return card_tuple(
+        return trow_tuple(
             id = self.id,
             Nome = self.Nome,
-            Logo = None
+            CNPJ = self.formata_CNPJ(),
+            Telefone = self.formata_telefone()
         )
