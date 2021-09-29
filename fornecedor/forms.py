@@ -66,7 +66,7 @@ class FornecedorForm( forms.ModelForm ):
     
     class Meta:
         model = Fornecedor
-        fields = ( 'Nome' , 'Endereco' , 'Telefone', 'CNPJ' )
+        fields = ( 'Nome' , 'Endereco' , 'Telefone', 'CNPJ' , 'Logo' )
     
     Nome = forms.CharField(
         error_messages = { 
@@ -98,6 +98,14 @@ class FornecedorForm( forms.ModelForm ):
             "unique":"CNPJ duplicado"
         },
         widget = forms.TextInput( attrs = {'class':'form-control form-control-sm', 'max-lenght': '30'})
+    )
+
+    Logo = forms.ImageField(
+        error_messages = {
+            "required":"Campo obrigatório",
+            "ivalid_image":"Imagem Invalida"
+        },
+        widget = forms.FileInput( attrs = { 'class':'btn btn-outline-primary btn-sm'})
     )
 
     def clean_Telefone( self ):

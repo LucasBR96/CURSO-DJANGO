@@ -45,14 +45,13 @@ def buscar_fornecedor( request , nome ):
     
 def lista_fornecedor(request):
 
-    #--------------------------------------------------------
-    # Caso o usuario tenha clicado em "editar fornecedor"
-    # Mas tenha cancelado a edição.
+    #---------------------------------------------------------
+    # Caso o usuario der um clickout de edita fornecedor
     forn_id = request.session.get( 'forn_id' )
     if forn_id:
-        del request.session['forn_id']
+        del request.session[ 'forn_id' ]
 
-    foo = lambda x : x.get_trow_tuple()
+    foo = lambda x : x.get_card_tuple()
     lista_de_fornecedores = [ foo( x ) for x in Fornecedor.objects.all() ]
 
     #---------------------------------------------------------
@@ -69,18 +68,20 @@ def cadastra_fornecedor( request ):
     
     if request.POST:
 
+        print( request.FILES )
+        
         forn_id = request.session.get( 'forn_id' )
         #------------------------------------------------------
         # Alterando um fornecedor ja cadastrado
         if forn_id:
             fornec = get_object_or_404( Fornecedor , pk = forn_id )
-            fornecedor_form = FornecedorForm( data = request.POST , instance = fornec )
+            fornecedor_form = FornecedorForm( data = request.POST, files = request.FILES, instance = fornec )
             del request.session['forn_id']
 
         #----------------------------------------------------
         # adicionando um novo fornecedor
         else:
-            fornecedor_form = FornecedorForm( data = request.POST )
+            fornecedor_form = FornecedorForm( data = request.POST, files = request.FILES )
             print( fornecedor_form )
 
         if fornecedor_form.is_valid():
@@ -90,10 +91,10 @@ def cadastra_fornecedor( request ):
             # um SQL update se for um produto alterado.
             form = fornecedor_form.save()
 
-            msg = "Produto adicionado com sucesso!"
-            if forn_id:
-                msg = "Produto alterado com sucesso!"
-            return JsonResponse( { "mensage":msg , "forn_id": form.id } )
+            # msg = "Produto adicionado com sucesso!"
+            # if forn_id:
+            #     msg = "Produto alterado com sucesso!"
+            # return JsonResponse( { "mensage":msg , "forn_id": form.id } )
     else:
         fornecedor_form = FornecedorForm()
     return render( request, 'fornecedor/form.html', { 'formulario': fornecedor_form }) 

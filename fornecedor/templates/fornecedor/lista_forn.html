@@ -41,33 +41,20 @@
    </div>
 
    <div class = "row" id = "fornec-card-display" >
-      <div class = "col-12 col-md-8 offset-md-2">
-         <table class = "table">
-
-            <thead class = "thead-dark">
-               <th scope="col" class = "d-none">#</th>
-               <th scope="col">Nome</th>
-               <th scope="col">CNPJ</th>
-               <th scope="col">Telefone</th>
-            </thead>
-            
-            <tbody>
-
-               {% for fornec in forn %}
-               <tr>
-                  <th scope = "row" class = "d-none" >{{ fornec.id }}</th>
-                  <td>
-                     <a href = "../visualisar_fornecedor/{{ fornec.id }}"> {{ fornec.Nome }}</a>
-                  </td>
-                  <td>{{ fornec.CNPJ }}</td>
-                  <td>{{ fornec.Telefone }}</td>
-               </tr>
-               {% endfor %}
-
-            </tbody>
-         </table>
+      {% for fornec in forn %}
+      <div class = "col-12 col-md-6 col-lg-4">
+         <div class = "card forn-card text-center border-secondary mx-1 mb-1"
+         id = "{{fornec.id}}">
+            <div class = "card-body">
+               <!-- <a href = "../visualisar_fornecedor/{{ fornec.id }}" style= "display: none;" ></a> -->
+               <img src = "{{ fornec.Logo.url }}" alt = "logo aqui" style = " width: 120px ; height: 120px;" >
+               <p style = "font-size: large;" class = "mt-2 mb-0 text-danger">
+                  {{ fornec.Nome }}
+               </p>
+            </div>
+         </div>
       </div>
-   </div>
+      {% endfor %}
    </div>
 
    <div style='font-size: 14px; margin-bottom: 28px'>

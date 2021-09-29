@@ -1,8 +1,8 @@
 from django.db import models
 from collections import namedtuple
 
-visual_tuple = namedtuple( 'visual_tuple', ['id' , 'Nome' , 'Telefone' , 'CNPJ' , 'Endereco'] )
-trow_tuple   = namedtuple( 'card_tuple', ['id' , 'Nome' , 'CNPJ', 'Telefone'] )
+visual_tuple = namedtuple( 'visual_tuple', ['id' , 'Nome' , 'Telefone' , 'CNPJ' , 'Endereco', 'Logo'] )
+card_tuple   = namedtuple( 'card_tuple', ['id' , 'Nome' , 'CNPJ', 'Telefone', 'Logo'] )
 
 # Create your models here.
 class Fornecedor( models.Model ):
@@ -11,6 +11,10 @@ class Fornecedor( models.Model ):
     Endereco = models.CharField( max_length = 100 , unique = False , blank = False )
     Telefone = models.CharField( max_length = 25 , unique = True , blank = False )
     CNPJ     = models.CharField( max_length = 30 , unique = True , blank = False )
+
+    #--------------------------------------------------------------------------
+    # Aprendendo upload de imagem
+    Logo     = models.ImageField( upload_to = "images/" , default = 'hortifruti-icon.png')
 
     class Meta:
         db_table = 'fornecedor'
@@ -48,13 +52,13 @@ class Fornecedor( models.Model ):
             Telefone = self.formata_telefone(),
             CNPJ = self.formata_CNPJ(),
             Endereco = self.Endereco,
+            Logo = self.Logo
         )
     
-    def get_trow_tuple( self ):
+    def get_card_tuple( self ):
 
-        return trow_tuple(
+        return card_tuple(
             id = self.id,
             Nome = self.Nome,
-            CNPJ = self.formata_CNPJ(),
-            Telefone = self.formata_telefone()
+            Logo = self.Logo
         )

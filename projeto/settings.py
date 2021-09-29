@@ -131,3 +131,6 @@ STATICFILES_DIRS = (
 
 # Carrinho
 CARRINHO_SESSION_ID = 'carrinho'
+
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = os.path.join( BASE_DIR , 'media' )
