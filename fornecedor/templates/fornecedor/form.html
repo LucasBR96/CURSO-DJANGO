@@ -103,6 +103,18 @@
         </div>
         
     </form>
+
+    {% if messages %}
+
+    {% for message in messages %}
+    <div class = "row text-center">
+        <div class = "alert alert-primary mb-0" role = "alert" style = "padding-top: 2px ; padding-bottom: 2px">
+            {{ message }}
+        </div>
+    </div>
+    {% endfor %}
+
+    {% endif %}
 </div>
 
 

@@ -18,7 +18,9 @@ def remover_forn( request ):
     print( form )
     if form.is_valid():
         forn_id = form.cleaned_data[ 'forn_id' ]
-        Fornecedor.objects.filter( id = forn_id ).delete()
+        forn = get_object_or_404( Fornecedor , pk = forn_id)
+        forn.Logo.delete()
+        forn.delete()
 
         return redirect( '../lista_fornecedor/' )
     
@@ -90,11 +92,10 @@ def cadastra_fornecedor( request ):
             # Vai fazer um SQL insert se o fornecedor for novo, e 
             # um SQL update se for um produto alterado.
             form = fornecedor_form.save()
-
-            # msg = "Produto adicionado com sucesso!"
-            # if forn_id:
-            #     msg = "Produto alterado com sucesso!"
-            # return JsonResponse( { "mensage":msg , "forn_id": form.id } )
+            msg = "fornecedor adicionado com sucesso"
+            if forn_id:
+                msg = "fornecedor alterado com sucesso"
+            messages.add_message(request, messages.SUCCESS, msg )
     else:
         fornecedor_form = FornecedorForm()
     return render( request, 'fornecedor/form.html', { 'formulario': fornecedor_form }) 

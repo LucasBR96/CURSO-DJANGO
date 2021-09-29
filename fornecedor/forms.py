@@ -102,10 +102,8 @@ class FornecedorForm( forms.ModelForm ):
 
     Logo = forms.ImageField(
         error_messages = {
-            "required":"Campo obrigatório",
-            "ivalid_image":"Imagem Invalida"
         },
-        widget = forms.FileInput( attrs = { 'class':'btn btn-outline-primary btn-sm'})
+        widget = forms.ClearableFileInput( attrs = { 'class':'btn btn-outline-primary btn-sm'})
     )
 
     def clean_Telefone( self ):

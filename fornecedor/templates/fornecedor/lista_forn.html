@@ -17,7 +17,7 @@
       </p>
    </div> 
 
-   <div class = "row mb-4">
+   <div class = "row ">
       <div class = "col-12 col-md-9 mb-2">
          <div class = "row" id = "busca_div">
 
@@ -39,11 +39,12 @@
          </button>
       </div>
    </div>
+   <hr class = "mb-4 mt-0">
 
-   <div class = "row" id = "fornec-card-display" >
+   <div class = "row px-3" id = "fornec-card-display" >
       {% for fornec in forn %}
-      <div class = "col-12 col-md-6 col-lg-4">
-         <div class = "card forn-card text-center border-secondary mx-1 mb-1"
+      <div class = "col-12 col-md-6 px-0">
+         <div class = "card forn-card text-center border-secondary mx-1 my-1"
          id = "{{fornec.id}}">
             <div class = "card-body">
                <!-- <a href = "../visualisar_fornecedor/{{ fornec.id }}" style= "display: none;" ></a> -->
@@ -84,6 +85,7 @@
          </ul>
       {% endif %}
    </div>
+
 {% endblock %}
 
 {% block domready %}

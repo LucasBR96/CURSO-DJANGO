@@ -2,7 +2,7 @@ from django.db import models
 from collections import namedtuple
 
 visual_tuple = namedtuple( 'visual_tuple', ['id' , 'Nome' , 'Telefone' , 'CNPJ' , 'Endereco', 'Logo'] )
-card_tuple   = namedtuple( 'card_tuple', ['id' , 'Nome' , 'CNPJ', 'Telefone', 'Logo'] )
+card_tuple   = namedtuple( 'card_tuple', ['id' , 'Nome' , 'Logo'] )
 
 # Create your models here.
 class Fornecedor( models.Model ):
@@ -14,7 +14,7 @@ class Fornecedor( models.Model ):
 
     #--------------------------------------------------------------------------
     # Aprendendo upload de imagem
-    Logo     = models.ImageField( upload_to = "images/" , default = 'hortifruti-icon.png')
+    Logo     = models.ImageField( upload_to = "images/" , default = 'hortifruti-icon.png' , blank = True , null = True )
 
     class Meta:
         db_table = 'fornecedor'
