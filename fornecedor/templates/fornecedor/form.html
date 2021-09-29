@@ -23,7 +23,7 @@
     </h5>
     <hr class = "mt-0">
 
-    <form id = "fornecedor-form" action = '../cadastra_fornecedor/' method = 'POST' enctype = "multipart/form-data">
+    <form id = "fornecedor-form" action = '../cadastra_fornecedor/' method = 'POST' enctype = "multipart/form-data" novalidate>
         {% csrf_token %}
         
         <div class = "row mb-2">
@@ -97,19 +97,8 @@
         </div>
 
         <div class ="text-center mt-3" >
-            <!-- <button id = "submit-btn" class = "btn btn-outline-danger" href = "#" >  
-                {% if 'forn_id' in request.session %}
-                    Alterar
-                {% else %}
-                    Cadastrar
-                {% endif %}
-            </button> -->
-            <buttton type ="submit" id = "submit-btn" class = "btn btn-outline-danger">  
-                {% if 'forn_id' in request.session %}
-                    Alterar
-                {% else %}
-                    Cadastrar
-                {% endif %}
+            <button type ="submit" id = "submit-btn" class = "btn btn-outline-danger">  
+                {% if 'forn_id' in request.session %}Alterar{% else %}Cadastrar{% endif %}
             </button>
         </div>
         
@@ -119,34 +108,18 @@
 
 {% endblock %}
 
+
+
 {% block domready %}
 <script>
     $( document ).ready( function(){
-        // $( "#submit-btn" ).click( function( event ){
+        $( "#submit-btn" ).click( function( event ){
 
-        //     event.preventDefault();
+            console.log( "!" )
+            return;
+            event.preventDefault();
 
-        //     let form = $( "#fornecedor-form" );
-        //     let url = $( form ).attr( "action" );
-
-        //     // let data = new FormData( form )
-        //     // for( let data_item of form.serializeArray() ){
-        //     //     console.log( data_item );
-        //     //     data.append( data_item.name , data_item.value );
-        //     // }
-        //     // console.log( data );
-        //     let data = $( form ).serializeArray();
-                        
-        //     $.post( url , data , function( resposta ){
-
-        //         // console.log( resposta )
-
-        //         alert( resposta.mensage );
-        //         window.location.replace("../visualisar_fornecedor/" + resposta.forn_id );
-
-        //     })
-
-        // })
+        })
  
     })
 </script>

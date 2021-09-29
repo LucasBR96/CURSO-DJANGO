@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block titulo %}
-    Fornecedor
+    Visualisando fornecedor
 {% endblock %}
 
 {% block corpo %}
@@ -77,12 +77,19 @@
                     <div class = "col-6 font-weight-bold">CNPJ</div>
                     <div class = "col-6">{{ forn.CNPJ }}</div>
                 </div>
+
+                <div class = "row mb-3 text-center">
+                    <div class = "col-6 font-weight-bold">CNPJ</div>
+                    <div class = "col-6">{{ forn.Endereco }}</div>
+                </div>
                 
             </div>
         </div>
 
     </div>
 
+    <div class = "">
+    </div>
     <div class = "row my-3" >
         <div class = "col-12 col-md-4 offset-md-2 text-center mb-2">
 

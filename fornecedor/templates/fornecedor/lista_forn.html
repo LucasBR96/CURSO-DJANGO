@@ -20,7 +20,7 @@
    <div class = "row mb-4" id = "busca_div">
 
       <div class = "col-12 col-md-8">
-         <input class = "form-control form-control-sm" style = "font-size: 18px;" type = "text" name = "forn_nome" placeholder = "pesquise o fornecedor aqui">
+         <input class = "form-control form-control-sm" style = "font-size: 18px; margin-top: 3px;" type = "text" name = "forn_nome" placeholder = "pesquise o fornecedor aqui">
          <div class = "invalid-feedback"> Nome não encontrado </div>
       </div>
       <div class = "col-md-2">
@@ -36,11 +36,7 @@
          id = "{{fornec.id}}">
             <div class = "card-body">
                <!-- <a href = "../visualisar_fornecedor/{{ fornec.id }}" style= "display: none;" ></a> -->
-               {% if fornec.Logo is None %}
-                  <img src = "{% static 'images/hortifruti-icon.png' %}" alt = "logo aqui" style = " width: 80% ; height: 80%;" >
-               {% else %}
-                  <img src = "{{ fornec.Logo.url }}" alt = "logo aqui" style = " width: 80% ; height: 80%;" >
-               {% endif %}
+               <img src = "{{ fornec.Logo.url }}" alt = "logo aqui" style = " width: 120px ; height: 120px;" >
                <p style = "font-size: large;" class = "mt-2 mb-0 text-danger">
                   {{ fornec.Nome }}
                </p>
