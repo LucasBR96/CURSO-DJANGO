@@ -65,12 +65,12 @@ def cadastra_fornecedor( request ):
         print( request.FILES )
         
         forn_id = request.session.get( 'forn_id' )
+        del request.session['forn_id']
         #------------------------------------------------------
         # Alterando um fornecedor ja cadastrado
         if forn_id:
             fornec = get_object_or_404( Fornecedor , pk = forn_id )
             fornecedor_form = FornecedorForm( data = request.POST, files = request.FILES, instance = fornec )
-            del request.session['forn_id']
 
         #----------------------------------------------------
         # adicionando um novo fornecedor

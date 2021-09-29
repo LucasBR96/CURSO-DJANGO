@@ -9,6 +9,6 @@ urlpatterns = [
     path('cadastra_fornecedor/', views.cadastra_fornecedor, name='cadastra_fornecedor'),
     path('remover_forn/', views.remover_forn , name = 'remover_forn'),
     path('visualisar_fornecedor/<int:id>', views.mostrar_fornecedor ),
-    path('edita_fornecedor/<int:id>', views.edita_fornecedor ),
+    path('edita_fornecedor/<int:id>', views.edita_fornecedor , name = 'edita_fornecedor'),
     path('buscar_fornecedor/<str:nome>' , views.buscar_fornecedor)
 ]
