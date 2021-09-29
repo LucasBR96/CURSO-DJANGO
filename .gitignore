@@ -1,2 +1,7 @@
 # todo o folder dist
 dist/*
+
+# tipos de arquivos
+*.pyc
+*.js
+*.css
